@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPL TICKET ARENA | Book Your Match</title>
+
+</head>
+
+<body>
+<header>
+  <div class="logo">IPL <span>ARENA.</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#teams">Teams</a>
+    <a href="#matches">Matches</a>
+    <button class="btn" onclick="goToBooking()">Book Tickets</button>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="tag">● THE CRICKET FEVER STARTS HERE</span>
+    <h1>FEEL THE ROAR.<br><span>LIVE THE GAME.</span></h1>
+    <p>Your team. Your stadium. Your moment. Discover exciting IPL matchups and experience the electrifying atmosphere of live cricket.</p>
+    <div class="hero-buttons">
+      <button class="btn" onclick="goToBooking()">Book Your Seats ↗</button>
+      <button class="btn-outline" onclick="document.getElementById('matches').scrollIntoView()">Explore Matches ↓</button>
+    </div>
+  </div>
+  <div class="stadium">🏏</div>
+</section>
+
+<section id="teams">
+  <div class="section-top">
+    <div>
+      <h2>Choose Your Squad</h2>
+      <p>Ten teams. One trophy. Infinite passion.</p>
+    </div>
+  </div>
+  <div class="teams-grid" id="teamsGrid"></div>
+</section>
+
+<section class="matches" id="matches">
+  <div class="section-top">
+    <div>
+      <h2>Featured Matchups</h2>
+      <p>Select a matchup and reserve your place in the stadium.</p>
+    </div>
+  </div>
+  <div class="match-grid" id="matchGrid"></div>
+</section>
+
+<section id="booking">
+  <div class="section-top">
+    <div>
+      <h2>Make It Matchday</h2>
+      <p>Choose your match and prepare for the action.</p>
+    </div>
+  </div>
+
+  <div class="booking-area">
+    <div class="booking-info">
+      <span class="tag">YOUR NEXT BIG EXPERIENCE</span>
+      <h3>Every ball tells a story.</h3>
+      <p>Be there for the sixes, the wickets, the celebrations and the unforgettable moments. Choose your match and explore your ticket options.</p>
+      <div class="big-icon">🏟️</div>
+    </div>
+
+    <form class="booking-form" id="bookingForm">
+      <h3>Book Your Tickets</h3>
+
+      <div class="field">
+        <label for="matchSelect">Select Match</label>
+        <select id="matchSelect" required></select>
+      </div>
+
+      <div class="field">
+        <label for="ticketType">Ticket Category</label>
+        <select id="ticketType">
+          <option value="800">General Stand — ₹800</option>
+          <option value="1500">Premium Stand — ₹1,500</option>
+          <option value="3000">VIP Lounge — ₹3,000</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="quantity">Number of Tickets</label>
+        <select id="quantity">
+          <option value="1">1 Ticket</option>
+          <option value="2">2 Tickets</option>
+          <option value="3">3 Tickets</option>
+          <option value="4">4 Tickets</option>
+          <option value="5">5 Tickets</option>
+          <option value="6">6 Tickets</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="customerName">Your Name</label>
+        <input type="text" id="customerName" placeholder="Enter your full name" required maxlength="80">
+      </div>
+
+      <div class="field">
+        <label for="customerEmail">Email Address</label>
+        <input type="email" id="customerEmail" placeholder="you@example.com" required>
+      </div>
+
+      <div class="total">
+        <span>Total Amount</span>
+        <strong id="totalPrice">₹800</strong>
+      </div>
+
+      <button type="submit" class="btn full-btn">Confirm Booking ↗</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <strong>IPL ARENA.</strong>
+  <span>A cricket fan experience concept · 2026</span>
+  <span>Demo project — no real tickets are issued.</span>
+</footer>
+
+<div class="modal" id="confirmationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-content">
+    <div class="success-icon">🎉</div>
+    <h2 id="modalTitle">Booking Preview!</h2>
+    <p id="confirmationText"></p>
+    <button class="btn full-btn" onclick="closeModal()">Awesome!</button>
+  </div>
+</div>
+
+<script>
+const teams = [
+  { name: "Chennai Super Kings", short: "CSK", color: "#f5c542", city: "Chennai" },
+  { name: "Mumbai Indians", short: "MI", color: "#2775e8", city: "Mumbai" },
+  { name: "Royal Challengers Bengaluru", short: "RCB", color: "#e84954", city: "Bengaluru" },
+  { name: "Kolkata Knight Riders", short: "KKR", color: "#9b59d0", city: "Kolkata" },
+  { name: "Sunrisers Hyderabad", short: "SRH", color: "#ff8036", city: "Hyderabad" },
+  { name: "Rajasthan Royals", short: "RR", color: "#e66db7", city: "Jaipur" },
+  { name: "Delhi Capitals", short: "DC", color: "#4287ee", city: "Delhi" },
+  { name: "Punjab Kings", short: "PBKS", color: "#ed515e", city: "Punjab" },
+  { name: "Gujarat Titans", short: "GT", color: "#6a9eb5", city: "Ahmedabad" },
+  { name: "Lucknow Super Giants", short: "LSG", color: "#37b8c5", city: "Lucknow" }
+];
+
+const matches = [
+  { home: "RCB", away: "CSK", venue: "Bengaluru", date: "Fixture to be announced", price: 800 },
+  { home: "MI", away: "KKR", venue: "Mumbai", date: "Fixture to be announced", price: 800 },
+  { home: "SRH", away: "GT", venue: "Hyderabad", date: "Fixture to be announced", price: 800 },
+  { home: "RR", away: "DC", venue: "Jaipur", date: "Fixture to be announced", price: 800 },
+  { home: "PBKS", away: "LSG", venue: "Punjab", date: "Fixture to be announced", price: 800 },
+  { home: "CSK", away: "MI", venue: "Chennai", date: "Fixture to be announced", price: 800 }
+];
+
+const teamByShort = Object.fromEntries(teams.map(team => [team.short, team]));
+
+let selectedTeam = "";
+
+function teamLogo(team) {
+  return `<div class="team-logo">${team.short}</div>`;
+}
+
+function renderTeams() {
+  document.getElementById("teamsGrid").innerHTML = teams.map(team => `
+    <div class="team-card ${selectedTeam === team.short ? "selected" : ""}" onclick="selectTeam('${team.short}')">
+      ${teamLogo(team)}
+      <h3>${team.name}</h3>
+      <p>${team.city}</p>
+    </div>
+  `).join("");
+}
+
+function renderMatches() {
+  document.getElementById("matchGrid").innerHTML = matches.map((match, i) => {
+    const home = teamByShort[match.home];
+    const away = teamByShort[match.away];
+
+    return `
+      <article class="match-card">
+        <div class="match-meta">
+          <span>IPL · MATCH ${i + 1}</span>
+          <span class="available">● Demo listing</span>
+        </div>
+        <div class="teams-versus">
+          <div class="match-team">
+            ${teamLogo(home)}
+            <h3>${home.name}</h3>
+          </div>
+          <span class="vs">VS</span>
+          <div class="match-team">
+            ${teamLogo(away)}
+            <h3>${away.name}</h3>
+          </div>
+        </div>
+        <div class="match-meta">
+          <span>📍 ${match.venue}</span>
+          <span>${match.date}</span>
+        </div>
+        <div class="match-bottom">
+          <div class="price">
+            <small>Starting from</small>
+            <strong>₹${match.price}</strong>
+          </div>
+          <button class="btn" onclick="bookMatch(${i})">Select Match</button>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function populateMatchSelect() {
+  document.getElementById("matchSelect").innerHTML = matches.map((match, i) => `
+    <option value="${i}">${teamByShort[match.home].name} vs ${teamByShort[match.away].name} — ${match.venue}</option>
+  `).join("");
+}
+
+function selectTeam(short) {
+  selectedTeam = short;
+  renderTeams();
+
+  const matchIndex = matches.findIndex(match => match.home === short || match.away === short);
+
+  if (matchIndex !== -1) {
+    document.getElementById("matchSelect").value = matchIndex;
+  }
+
+  goToBooking();
+  updateTotal();
+}
+
+function bookMatch(index) {
+  document.getElementById("matchSelect").value = index;
+  updateTotal();
+  goToBooking();
+}
+
+function goToBooking() {
+  document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
+}
+
+function updateTotal() {
+  const category = Number(document.getElementById("ticketType").value);
+  const quantity = Number(document.getElementById("quantity").value);
+  document.getElementById("totalPrice").textContent = "₹" + (category * quantity).toLocaleString("en-IN");
+}
+
+document.getElementById("ticketType").addEventListener("change", updateTotal);
+document.getElementById("quantity").addEventListener("change", updateTotal);
+
+document.getElementById("bookingForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const match = matches[Number(document.getElementById("matchSelect").value)];
+  const category = Number(document.getElementById("ticketType").value);
+  const quantity = Number(document.getElementById("quantity").value);
+  const name = document.getElementById("customerName").value.trim();
+  const email = document.getElementById("customerEmail").value.trim();
+
+  if (!name || !email) return;
+
+  const total = category * quantity;
+
+  document.getElementById("confirmationText").textContent =
+    `Thanks, ${name}! Your demo booking preview is for ${teamByShort[match.home].name} vs ${teamByShort[match.away].name}. ${quantity} ticket(s), estimated total ₹${total.toLocaleString("en-IN")}. A real booking has not been created and no tickets have been issued.`;
+
+  document.getElementById("confirmationModal").classList.add("show");
+});
+
+function closeModal() {
+  document.getElementById("confirmationModal").classList.remove("show");
+}
+
+document.getElementById("confirmationModal").addEventListener("click", function(event) {
+  if (event.target === this) closeModal();
+});
+
+renderTeams();
+renderMatches();
+populateMatchSelect();
+updateTotal();
+</script>
+</body>
+</html>
