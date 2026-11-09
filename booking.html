@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071226">
+  <meta name="description" content="Complete the IPL Arena demo ticket booking form. No real tickets are sold or issued.">
+  <title>Ticket Booking Form | IPL Arena</title>
+  <link rel="icon" href="img/ipl-brand.png" type="image/png">
+  <link rel="stylesheet" href="CSS/styles.css">
+  <script src="JS/booking.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="index.html" aria-label="IPL Arena home">
+        <img src="img/ipl-brand.png" alt="TATA IPL logo" width="72" height="44">
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-name">TICKET<span>ARENA</span></span>
+      </a>
+      <a class="button button-small nav-cta" href="index.html">Back to home <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="booking-section" aria-labelledby="bookingTitle">
+      <div class="page-width section">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow section-kicker">PLAN YOUR MATCHDAY</span>
+            <h1 id="bookingTitle">Ticket <span class="text-gold">booking form</span></h1>
+            <p>Enter your details to preview a demo booking. Your information is not sent or saved.</p>
+          </div>
+          <span class="section-side-note">DEMO ONLY · NO REAL TICKETS</span>
+        </div>
+
+        <div class="demo-notice" role="note">
+          <span class="notice-icon" aria-hidden="true">i</span>
+          <p><strong>Demo experience:</strong> This form does not reserve seats, collect payment or issue tickets.</p>
+        </div>
+
+        <div class="booking-layout">
+          <form class="booking-form" id="ticketBookingForm">
+            <div class="form-title">
+              <span class="form-icon" aria-hidden="true">✦</span>
+              <div><h2>Booking details</h2><p>Fields marked required must be completed.</p></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="customerName">Full name</label>
+                <input type="text" id="customerName" name="name" autocomplete="name" placeholder="Your name" minlength="2" maxlength="80" required>
+              </div>
+              <div class="form-field">
+                <label for="customerEmail">Email address</label>
+                <input type="email" id="customerEmail" name="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="customerPhone">Phone number</label>
+                <input type="tel" id="customerPhone" name="phone" autocomplete="tel" placeholder="+919876543210" pattern="[+]?[0-9]{7,15}" minlength="7" maxlength="16" title="Enter 7 to 15 digits, with an optional leading +." required>
+              </div>
+              <div class="form-field">
+                <label for="match">Select a match</label>
+                <select id="match" name="match" required>
+                  <option value="" selected disabled>Choose a demo matchup</option>
+                  <option value="rcb-csk">Royal Challengers Bengaluru vs Chennai Super Kings</option>
+                  <option value="mi-kkr">Mumbai Indians vs Kolkata Knight Riders</option>
+                  <option value="srh-gt">Sunrisers Hyderabad vs Gujarat Titans</option>
+                  <option value="rr-dc">Rajasthan Royals vs Delhi Capitals</option>
+                  <option value="pbks-lsg">Punjab Kings vs Lucknow Super Giants</option>
+                  <option value="csk-mi">Chennai Super Kings vs Mumbai Indians</option>
+                  <option value="gt-rcb">Gujarat Titans vs Royal Challengers Bengaluru</option>
+                  <option value="kkr-srh">Kolkata Knight Riders vs Sunrisers Hyderabad</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="stand">Stand category</label>
+                <select id="stand" name="stand" required>
+                  <option value="" selected disabled>Choose a stand</option>
+                  <option value="general">General Stand</option>
+                  <option value="premium">Premium Stand</option>
+                  <option value="vip">VIP Lounge</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="ticketCount">Number of tickets</label>
+                <input type="number" id="ticketCount" name="tickets" min="1" max="10" value="1" required>
+              </div>
+            </div>
+
+            <fieldset class="booking-preferences">
+              <legend>Booking preferences <span>(optional)</span></legend>
+              <label class="demo-consent">
+                <input type="checkbox" name="seatsTogether" value="yes">
+                <span>Seat our group together where possible</span>
+              </label>
+              <div class="preference-options" role="group" aria-label="Seat area preference">
+                <label class="demo-consent">
+                  <input type="radio" name="seatArea" value="near-aisle">
+                  <span>Prefer a seat near an aisle</span>
+                </label>
+                <label class="demo-consent">
+                  <input type="radio" name="seatArea" value="no-preference" checked>
+                  <span>No seat area preference</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <label class="demo-consent">
+              <input type="checkbox" name="demoAcknowledgement" required>
+              <span>I understand this is a demo and no real tickets will be booked.</span>
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" class="button">Submit booking <span aria-hidden="true">→</span></button>
+              <button type="reset" class="button button-outline">Reset form</button>
+            </div>
+            <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+          </form>
+
+          <aside class="booking-aside">
+            <div class="aside-glow" aria-hidden="true"></div>
+            <span class="eyebrow">THE MAGIC IS BETTER LIVE</span>
+            <h2>Make some<br>matchday <span>memories.</span></h2>
+            <p>Choose your matchup, pick your view and get ready for the noise. Your next cricket story starts here.</p>
+            <div class="aside-stats">
+              <div><strong>10</strong><span>Iconic teams</span></div>
+              <div><strong>1</strong><span>Love of cricket</span></div>
+            </div>
+            <div class="aside-footnote"><span aria-hidden="true">✦</span> YOUR TEAM. YOUR STADIUM. YOUR MOMENT.</div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-width footer-main">
+      <a class="brand footer-brand" href="index.html" aria-label="IPL Arena home">
+        <img src="img/ipl-brand.png" alt="" width="68" height="42">
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-name">TICKET<span>ARENA</span></span>
+      </a>
+      <p>A fan-made cricket experience. Not affiliated with the IPL or any team.</p>
+      <nav aria-label="Footer navigation">
+        <a href="index.html#matches">Matches</a><a href="index.html#teams">Teams</a><a href="index.html">Home</a>
+      </nav>
+    </div>
+    <div class="page-width footer-bottom">
+      <span>© 2026 IPL Ticket Arena</span>
+      <span>No official fixtures · No real tickets · No payments</span>
+    </div>
+  </footer>
+</body>
+</html>
